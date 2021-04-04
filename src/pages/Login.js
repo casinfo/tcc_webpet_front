@@ -235,7 +235,7 @@ export default function Login({ setToken }) {
                 <GoogleLogin
                     //clientId="193145381551-tdi4vq2kvshpd3c44b83a3vto5kdpi7d.apps.googleusercontent.com"
                     clientId="193145381551-5da1ibhmqvqrdn7am1saaodvgvqbjuk5.apps.googleusercontent.com"
-                    buttonText="Entre com sua conta Google"
+                    buttonText="Entre com sua conta Google!"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={"single_host_origin"}
