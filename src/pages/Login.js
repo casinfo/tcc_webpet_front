@@ -199,7 +199,7 @@ export default function Login({ setToken }) {
                     onChange={(e) => setSenha(e.target.value)}
                     InputProps={{
                         startAdornment: (
-                            <InputAdornment>
+                            <InputAdornment position="start">
                                 <LockOutlinedIcon />
                             </InputAdornment>
                         ),
