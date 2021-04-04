@@ -74,6 +74,8 @@ export default function Login({ setToken }) {
     const [values, setValues] = useState({ showPassword: false });
 
     const responseGoogle = (res) => {
+        console.log(res.profileObj.email);
+
         async function submitUsuario() {
             const data = {
                 nome: res.profileObj.name,
@@ -231,8 +233,8 @@ export default function Login({ setToken }) {
                     LOGIN
                 </Button>
                 <GoogleLogin
-                    //local = clientId="193145381551-tdi4vq2kvshpd3c44b83a3vto5kdpi7d.apps.googleusercontent.com"
-                    clientId="193145381551-5da1ibhmqvqrdn7am1saaodvgvqbjuk5.apps.googleusercontent.com"
+                    clientId="193145381551-tdi4vq2kvshpd3c44b83a3vto5kdpi7d.apps.googleusercontent.com"
+                    //clientId="193145381551-5da1ibhmqvqrdn7am1saaodvgvqbjuk5.apps.googleusercontent.com"
                     buttonText="Entre com sua conta Google"
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
