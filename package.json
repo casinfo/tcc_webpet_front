@@ -3,6 +3,9 @@
     "version": "0.1.0",
     "private": true,
     "main": "index.js",
+    "engines": {
+        "node": "14.15.0"
+    },
     "dependencies": {
         "@date-io/date-fns": "1.x",
         "@material-ui/core": "^4.11.3",
