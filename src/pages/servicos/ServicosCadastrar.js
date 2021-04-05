@@ -5,7 +5,7 @@ import clsx from "clsx";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
-import { Button } from "@material-ui/core";
+import { Button, ButtonGroup } from "@material-ui/core";
 
 import MenuAdmin from "../MenuAdmin";
 import api from "../../services/api";
@@ -50,13 +50,21 @@ export default function ServicosCadastrar() {
 
         const response = await api.post("/servicos", data);
 
-        if (response.status === 200) {
-            window.location.href = "/Servicos";
+        if (descricao !== "" && tempo_medio !== "") {
+            if (response.status === 200) {
+                window.location.href = "/Servicos";
+            } else {
+                if (response.status === 400) {
+                    alert("Os campos não foram preenchidos corretamente!");
+                } else {
+                    alert(
+                        "Ocorreu um erro na inclusão do Serviço. Tente novamente! Erro: " +
+                            response.status
+                    );
+                }
+            }
         } else {
-            alert(
-                "Ocorreu um erro na inclusão do Serviço. Tente novamente! Erro: " +
-                    response.status
-            );
+            alert("Os campos não foram preenchidos corretamente!");
         }
     }
 
@@ -96,20 +104,22 @@ export default function ServicosCadastrar() {
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={submitServicos}
-                                >
-                                    Salvar
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    href="/Servicos"
-                                >
-                                    Voltar
-                                </Button>
+                                <ButtonGroup>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={submitServicos}
+                                    >
+                                        Salvar
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        href="/Servicos"
+                                    >
+                                        Voltar
+                                    </Button>
+                                </ButtonGroup>
                             </Grid>
                         </Grid>
                     </Paper>
