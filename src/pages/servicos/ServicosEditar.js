@@ -53,16 +53,16 @@ export default function ServicosEditar() {
             setTempomedio(response.data[0].tempo_medio);
         }
         getServico();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function submitServico() {
         const data = {
-            id: id,
             descricao: descricao,
             tempo_medio: tempo_medio,
         };
 
-        const response = await api.put('/servicos/' + id, data);
+        const response = await api.put("/servicos/" + id, data);
         if (response.status === 200) {
             window.location.href = "/Servicos";
         } else {
@@ -74,56 +74,58 @@ export default function ServicosEditar() {
     }
 
     return (
-        <div className={classes.root}>
-            <MenuAdmin title={"Editar Serviços"} />
+        <div>
+            <div className={classes.root}>
+                <MenuAdmin title={"Editar Serviços"} />
 
-            <main className={classes.content}>
-                <div className={classes.appBarSpacer} />
-                <Container maxWidth="lg" className={classes.container}>
-                    <Paper className={fixedHeightPaper}>
-                        <Grid container spacing={3}>
-                            <Grid item xs={12} sm={8}>
-                                <TextField
-                                    id="descricao"
-                                    name="descricao"
-                                    label="Descrição"
-                                    fullWidth
-                                    value={descricao}
-                                    onChange={(e) =>
-                                        setDescricao(e.target.value)
-                                    }
-                                />
-                                <TextField
-                                    id="tempo_medio"
-                                    name="tempo_medio"
-                                    label="Tempo Médio"
-                                    fullWidth
-                                    value={tempo_medio}
-                                    onChange={(e) =>
-                                        setTempomedio(e.target.value)
-                                    }
-                                />
+                <main className={classes.content}>
+                    <div className={classes.appBarSpacer} />
+                    <Container maxWidth="lg" className={classes.container}>
+                        <Paper className={fixedHeightPaper}>
+                            <Grid container spacing={3}>
+                                <Grid item xs={12} sm={8}>
+                                    <TextField
+                                        id="descricao"
+                                        name="descricao"
+                                        label="Descrição"
+                                        fullWidth
+                                        value={descricao}
+                                        onChange={(e) =>
+                                            setDescricao(e.target.value)
+                                        }
+                                    />
+                                    <TextField
+                                        id="tempo_medio"
+                                        name="tempo_medio"
+                                        label="Tempo Médio"
+                                        fullWidth
+                                        value={tempo_medio}
+                                        onChange={(e) =>
+                                            setTempomedio(e.target.value)
+                                        }
+                                    />
+                                </Grid>
+                                <Grid item xs={12}>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={submitServico}
+                                    >
+                                        Salvar
+                                    </Button>
+                                    <Button
+                                        variant="contained"
+                                        color="secondary"
+                                        href="/Servicos"
+                                    >
+                                        Voltar
+                                    </Button>
+                                </Grid>
                             </Grid>
-                            <Grid item xs={12}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    onClick={submitServico}
-                                >
-                                    Salvar
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    href="/Servicos"
-                                >
-                                    Voltar
-                                </Button>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Container>
-            </main>
+                        </Paper>
+                    </Container>
+                </main>
+            </div>
         </div>
     );
 }

@@ -75,7 +75,7 @@ export default function UsuariosCadastrar() {
 
         const response = await api.post("/usuarios", data);
 
-        if (response.status == 200) {
+        if (response.status === 200) {
             window.location.href = "/Usuarios";
         } else {
             alert(

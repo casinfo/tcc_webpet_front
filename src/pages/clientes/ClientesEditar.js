@@ -57,23 +57,24 @@ export default function ClientesEditar() {
     const { id } = useParams();
 
     useEffect(() => {
-        async function getCliente(){
-            var response = await api.get('/clientes?id=' + id);
+        async function getCliente() {
+            var response = await api.get("/clientes?id=" + id);
 
-            setNome(response.data[0].nome)
-            setEmail(response.data[0].email)
-            setCep(response.data[0].cep)
-            setEndereco(response.data[0].endereco)
+            setNome(response.data[0].nome);
+            setEmail(response.data[0].email);
+            setCep(response.data[0].cep);
+            setEndereco(response.data[0].endereco);
             setNumero(response.data[0].numero);
-            setComplemento(response.data[0].complemento)
-            setBairro(response.data[0].bairro)
-            setCidade(response.data[0].cidade)
-            setUF(response.data[0].uf)
-            setFone(response.data[0].fone)
-            setCPF(response.data[0].cpf)
+            setComplemento(response.data[0].complemento);
+            setBairro(response.data[0].bairro);
+            setCidade(response.data[0].cidade);
+            setUF(response.data[0].uf);
+            setFone(response.data[0].fone);
+            setCPF(response.data[0].cpf);
         }
         getCliente();
-    }, [])
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
 
     async function submitCliente() {
         const data = {
@@ -90,7 +91,7 @@ export default function ClientesEditar() {
             cpf: cpf,
         };
 
-        const response = await api.put('/clientes/'+ id, data);
+        const response = await api.put("/clientes/" + id, data);
         if (response.status === 200) {
             window.location.href = "/clientes";
         } else {
@@ -203,9 +204,7 @@ export default function ClientesEditar() {
                                     label="CPF"
                                     fullWidth
                                     value={cpf}
-                                    onChange={(e) =>
-                                        setCPF(e.target.value)
-                                    }
+                                    onChange={(e) => setCPF(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>

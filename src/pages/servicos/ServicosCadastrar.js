@@ -41,22 +41,24 @@ export default function ServicosCadastrar() {
 
     const [descricao, setDescricao] = useState("");
     const [tempo_medio, setTempomedio] = useState("");
-     
-    async function submitServicos() {
 
+    async function submitServicos() {
         const data = {
-            descricao:descricao, 
-            tempo_medio:tempo_medio, 
+            descricao: descricao,
+            tempo_medio: tempo_medio,
         };
 
-        const response = await api.post('/servicos', data);
+        const response = await api.post("/servicos", data);
 
-        if (response.status == 200){
+        if (response.status === 200) {
             window.location.href = "/Servicos";
         } else {
-           alert("Ocorreu um erro na inclusão do Serviço. Tente novamente! Erro: " + response.status);
-        }        
-    };
+            alert(
+                "Ocorreu um erro na inclusão do Serviço. Tente novamente! Erro: " +
+                    response.status
+            );
+        }
+    }
 
     return (
         <div className={classes.root}>
@@ -76,7 +78,9 @@ export default function ServicosCadastrar() {
                                     fullWidth
                                     autoComplete="family-name"
                                     value={descricao}
-                                    onChange={e => setDescricao(e.target.value)}
+                                    onChange={(e) =>
+                                        setDescricao(e.target.value)
+                                    }
                                 />
                                 <TextField
                                     required
@@ -86,11 +90,17 @@ export default function ServicosCadastrar() {
                                     fullWidth
                                     autoComplete="shipping address-line1"
                                     value={tempo_medio}
-                                    onChange={e => setTempomedio(e.target.value)}
+                                    onChange={(e) =>
+                                        setTempomedio(e.target.value)
+                                    }
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" onClick={submitServicos}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={submitServicos}
+                                >
                                     Salvar
                                 </Button>
                                 <Button

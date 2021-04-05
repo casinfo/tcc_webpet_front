@@ -2,7 +2,6 @@ import React from "react";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import ListSubheader from "@material-ui/core/ListSubheader";
 import DashboardIcon from "@material-ui/icons/Dashboard";
 import Schedule from "@material-ui/icons/Schedule";
 import PetsIcon from "@material-ui/icons/Pets";
@@ -60,16 +59,18 @@ export const mainListItems = (
     </div>
 );
 
-async function confirmaSaida(){
+async function confirmaSaida() {
     if (window.confirm("Sair do sistema?")) {
-        const response = await api.get('/destroyToken', {headers: {token: getToken()}});
+        const response = await api.get("/destroyToken", {
+            headers: { token: getToken() },
+        });
 
         console.log(response);
-        if (response.status===200){
+        if (response.status === 200) {
             logout();
-            window.location.href = '/';
+            window.location.href = "/";
         } else {
-            alert('Erro ao encerrar sessão!')
+            alert("Erro ao encerrar sessão!");
         }
     }
 }

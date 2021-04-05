@@ -78,6 +78,7 @@ export default function UsuariosEditar() {
             setTipoUsuario(response.data[0].tipo_usuario);
         }
         getUsuario();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function submitUsuario() {
@@ -117,7 +118,7 @@ export default function UsuariosEditar() {
             label: "Usuário",
         },
     ];
-    
+
     const handleChange = (event) => {
         setTipoUsuario(event.target.value);
     };
