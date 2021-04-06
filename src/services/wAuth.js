@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Route, Redirect } from "react-router-dom";
+import LinearProgress from "@material-ui/core/LinearProgress";
 
 import api from "../services/api";
 import { logout, getToken } from "./auth";
@@ -27,7 +28,7 @@ export default function WAuth({ component: Component, ...rest }) {
     }, []);
 
     return loading ? (
-        "Aguarde carregando..."
+        <LinearProgress />
     ) : (
         <Route
             {...rest}

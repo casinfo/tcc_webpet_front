@@ -76,11 +76,9 @@ export default function Servicos() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Table 
-                             size={"small"} 
-                            >
+                            <Table size={"small"}>
                                 <TableHead>
-                                    <TableRow key={servicos.id}>
+                                    <TableRow>
                                         <TableCell>Código Serviço</TableCell>
                                         <TableCell>Descrição</TableCell>
                                         <TableCell>Tempo Médio</TableCell>
@@ -100,7 +98,8 @@ export default function Servicos() {
                                                 <Button
                                                     color="primary"
                                                     href={
-                                                        "./Servicos/ServicosEditar/" + servicos.id
+                                                        "./Servicos/ServicosEditar/" +
+                                                        servicos.id
                                                     }
                                                 >
                                                     Editar

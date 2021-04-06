@@ -106,7 +106,10 @@ export default function Clientes() {
         }
     }
 
-    async function listarPets(id) {}
+    async function listarPets(id) {
+        //const queryLista = pets.id_cliente ? { where: { id } } : {};
+        //const listaPets = pets.findAll(queryLista);
+    }
 
     return (
         <div className={classes.root}>
