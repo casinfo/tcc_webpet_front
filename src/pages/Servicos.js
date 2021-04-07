@@ -13,6 +13,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import api from "../services/api";
+import { getTipoUsuario } from "../services/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -43,6 +44,8 @@ export default function Servicos() {
     const classes = useStyles();
 
     const [servicos, setServicos] = useState([]);
+
+    const tip_usuario = getTipoUsuario();
 
     useEffect(() => {
         async function carregarServicos() {
@@ -110,6 +113,11 @@ export default function Servicos() {
                                                         deletarServicos(
                                                             servicos.id
                                                         )
+                                                    }
+                                                    disabled={
+                                                        tip_usuario !== "A"
+                                                            ? true
+                                                            : false
                                                     }
                                                 >
                                                     Deletar

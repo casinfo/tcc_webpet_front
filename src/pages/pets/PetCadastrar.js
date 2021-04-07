@@ -50,6 +50,8 @@ export default function PetCadastrar() {
     const [porte, setPorte] = useState("");
     const [sexo, setSexo] = useState("");
 
+    //setIdCliente(id_cliente_param);
+
     async function submitPets() {
         const data = {
             id_cliente: id_cliente,
@@ -189,7 +191,7 @@ export default function PetCadastrar() {
                                     onChange={(e) =>
                                         setIdCliente(e.target.value)
                                     }
-                                    // disabled
+                                    //disabled
                                 />
                                 <TextField
                                     required

@@ -20,6 +20,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import api from "../services/api";
+import { getTipoUsuario } from "../services/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -51,6 +52,8 @@ export default function Usuarios() {
 
     const [usuarios, setUsuarios] = useState([]);
 
+    const tip_usuario = getTipoUsuario();
+
     useEffect(() => {
         async function carregarUsuarios() {
             const response = await api.get("/usuarios");
@@ -60,14 +63,16 @@ export default function Usuarios() {
         carregarUsuarios();
     }, []);
 
-    async function deletarUsuario(id){
-        if(window.confirm('Confirma a exclusão desse usuário?')){
-            var result = await api.delete("/usuarios/"+id);
+    async function deletarUsuario(id) {
+        if (window.confirm("Confirma a exclusão desse usuário?")) {
+            var result = await api.delete("/usuarios/" + id);
 
-            if (result.status === 200){
+            if (result.status === 200) {
                 window.location.href = "/Usuarios";
             } else {
-                alert("Ocorreu um erro na exclusão do registro. Tente novamente!");
+                alert(
+                    "Ocorreu um erro na exclusão do registro. Tente novamente!"
+                );
             }
         }
     }
@@ -81,9 +86,7 @@ export default function Usuarios() {
                 <Container maxWidth="lg" className={classes.container}>
                     <Grid item xs={12}>
                         <Paper className={classes.paper}>
-                            <Table
-                                size={"small"} 
-                            >
+                            <Table size={"small"}>
                                 <TableHead>
                                     <TableRow key={usuarios.id}>
                                         <TableCell component="th" scope="row">
@@ -113,18 +116,42 @@ export default function Usuarios() {
                                                 {usuarios.fone}
                                             </TableCell>
                                             <TableCell>
-                                                {usuarios.tipo_usuario==="U"?<Chip label="Usuário" color="primary"/>:<Chip label="Administrador" color="secondary"/>}
+                                                {usuarios.tipo_usuario ===
+                                                "U" ? (
+                                                    <Chip
+                                                        label="Usuário"
+                                                        color="primary"
+                                                    />
+                                                ) : (
+                                                    <Chip
+                                                        label="Administrador"
+                                                        color="secondary"
+                                                    />
+                                                )}
                                             </TableCell>
                                             <ButtonGroup aria-label="outlined primary button group">
                                                 <Button
                                                     color="primary"
                                                     href={
-                                                        "./Usuarios/UsuariosEditar/"+(usuarios.id)
+                                                        "./Usuarios/UsuariosEditar/" +
+                                                        usuarios.id
                                                     }
                                                 >
                                                     Editar
                                                 </Button>
-                                                <Button color="secondary" onClick={()=> deletarUsuario(usuarios.id)}>
+                                                <Button
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        deletarUsuario(
+                                                            usuarios.id
+                                                        )
+                                                    }
+                                                    disabled={
+                                                        tip_usuario !== "A"
+                                                            ? true
+                                                            : false
+                                                    }
+                                                >
                                                     Deletar
                                                 </Button>
                                             </ButtonGroup>

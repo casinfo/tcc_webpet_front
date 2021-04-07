@@ -30,13 +30,13 @@ export const mainListItems = (
             <ListItemIcon>
                 <PeopleIcon />
             </ListItemIcon>
-            <ListItemText primary="Clientes" />
+            <ListItemText primary="Clientes e Pets" />
         </ListItem>
         <ListItem button component="a" href="/Pets">
             <ListItemIcon>
                 <PetsIcon />
             </ListItemIcon>
-            <ListItemText primary="Pets" />
+            <ListItemText primary="Lista de Pets" />
         </ListItem>
         <ListItem button component="a" href="/Servicos">
             <ListItemIcon>

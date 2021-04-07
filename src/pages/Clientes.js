@@ -21,6 +21,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 
 import api from "../services/api";
+import { getTipoUsuario } from "../services/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -53,9 +54,10 @@ export default function Clientes() {
 
     const [clientes, setclientes] = useState([]);
     const [pets, setPets] = useState([]);
-    const [listaPets, setlistaPets] = useState([]);
-
     const [selected, setSelected] = React.useState([]);
+
+    const tip_usuario = getTipoUsuario();
+
     const handleClick = (event, id) => {
         const selectedIndex = selected.indexOf(id);
         let newSelected = [];
@@ -106,9 +108,16 @@ export default function Clientes() {
         }
     }
 
-    async function listarPets(id) {
-        //const queryLista = pets.id_cliente ? { where: { id } } : {};
-        //const listaPets = pets.findAll(queryLista);
+    async function deletarPet(id) {
+        if (window.confirm("Confirma a exclusão desse pet?")) {
+            var result = await api.delete("/pets/" + id);
+
+            if (result.status === 200) {
+                window.location.href = "/clientes";
+            } else {
+                alert("Ocorreu um erro na exclusão do pet. Tente novamente!");
+            }
+        }
     }
 
     return (
@@ -140,7 +149,7 @@ export default function Clientes() {
                                             //onClick={(event) => handleClick(event, clientes.id)}
                                             role="checkbox"
                                             tabIndex={-1}
-                                            onClick={listarPets(clientes.id)}
+                                            //onClick={(e) => setIdParam(e)}
                                         >
                                             <TableCell>{clientes.id}</TableCell>
                                             <TableCell>
@@ -171,6 +180,11 @@ export default function Clientes() {
                                                         deletarCliente(
                                                             clientes.id
                                                         )
+                                                    }
+                                                    disabled={
+                                                        tip_usuario !== "A"
+                                                            ? true
+                                                            : false
                                                     }
                                                 >
                                                     Deletar
@@ -234,6 +248,30 @@ export default function Clientes() {
                                             <TableCell>
                                                 {pets.id_cliente}
                                             </TableCell>
+                                            <ButtonGroup aria-label="outlined primary button group">
+                                                <Button
+                                                    color="primary"
+                                                    href={
+                                                        "./pets/PetsEditar/" +
+                                                        pets.id
+                                                    }
+                                                >
+                                                    Editar
+                                                </Button>
+                                                <Button
+                                                    color="secondary"
+                                                    onClick={() =>
+                                                        deletarPet(pets.id)
+                                                    }
+                                                    disabled={
+                                                        tip_usuario !== "A"
+                                                            ? true
+                                                            : false
+                                                    }
+                                                >
+                                                    Deletar
+                                                </Button>
+                                            </ButtonGroup>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -242,7 +280,7 @@ export default function Clientes() {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    href={"./pets/PetCadastrar"}
+                                    href={"./pets/PetCadastrar/"}
                                 >
                                     Novo
                                 </Button>
