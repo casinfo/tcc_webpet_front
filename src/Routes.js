@@ -8,7 +8,8 @@ import Clientes from "./pages/Clientes";
 import ClientesCadastrar from "./pages/clientes/ClientesCadastrar";
 import ClientesEditar from "./pages/clientes/ClientesEditar";
 import Pets from "./pages/Pets";
-import PetCadastrar from "./pages/pets/PetCadastrar";
+import PetsCadastrar from "./pages/pets/PetsCadastrar";
+import PetsEditar from "./pages/pets/PetsEditar";
 import Servicos from "./pages/Servicos";
 import ServicosCadastrar from "./pages/servicos/ServicosCadastrar";
 import ServicosEditar from "./pages/servicos/ServicosEditar";
@@ -43,9 +44,13 @@ export function useRoutes() {
                 />
                 <PrivateRoute path="/Pets" exact component={Pets} />
                 <PrivateRoute
-                    path="/pets/PetCadastrar"
+                    path="/pets/PetsCadastrar"
                     exact
-                    component={PetCadastrar}
+                    component={PetsCadastrar}
+                />
+                <PrivateRoute
+                    path="/pets/PetsEditar/:id"
+                    component={PetsEditar}
                 />
                 <PrivateRoute path="/Servicos" exact component={Servicos} />
                 <PrivateRoute

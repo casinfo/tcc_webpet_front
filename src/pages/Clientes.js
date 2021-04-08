@@ -280,7 +280,7 @@ export default function Clientes() {
                                 <Button
                                     variant="contained"
                                     color="primary"
-                                    href={"./pets/PetCadastrar/"}
+                                    href={"./pets/PetsCadastrar/"}
                                 >
                                     Novo
                                 </Button>
