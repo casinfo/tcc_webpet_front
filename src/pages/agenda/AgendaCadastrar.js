@@ -161,6 +161,19 @@ export default function AgendaCadastrar() {
         };
     }
 
+    /*
+    const dataAtual = new Date();
+    const ano = dataAtual.getFullYear();
+    const mesAtual = dataAtual.getUTCMonth() + 1;
+    const mes = mesAtual.toString().length < 2 ? `0${mesAtual}` : mesAtual;
+    const date =
+        dataAtual.getUTCDate().toString().length < 2
+            ? `0${dataAtual.getUTCDate()}`
+            : dataAtual.getUTCDate();
+
+    const materialDateInput = `${ano}-${mes}-${date}`;
+    */
+
     return (
         <div className={classes.root}>
             <MenuAdmin title={"Cadastrar Agenda"} />
@@ -172,10 +185,11 @@ export default function AgendaCadastrar() {
                         <Grid container spacing={3}>
                             <Grid item xs={12} sm={8}>
                                 <TextField
-                                    id="date"
+                                    id="data"
                                     label="Data"
                                     type="date"
-                                    defaultValue={Date().toString}
+                                    //defaultValue={materialDateInput}
+                                    defaultValue={Date().value}
                                     className={classes.textField}
                                     InputLabelProps={{
                                         shrink: true,

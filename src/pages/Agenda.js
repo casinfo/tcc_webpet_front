@@ -4,7 +4,7 @@ import Paper from "@material-ui/core/Paper";
 import Container from "@material-ui/core/Container";
 import { makeStyles } from "@material-ui/core/styles";
 import { Button, ButtonGroup } from "@material-ui/core";
-import { lightFormat } from "date-fns";
+import { lightFormat, format } from "date-fns";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -53,6 +53,24 @@ export default function Agenda() {
         carregarAgenda();
     }, []);
 
+    async function confirmarAgenda(id) {
+        const data = {
+            confirmado: "SIM",
+        };
+
+        if (window.confirm("Confirmar o agendamento?")) {
+            var result = await api.put("/agenda/" + id, data);
+
+            if (result.status === 200) {
+                window.location.href = "/Agenda";
+            } else {
+                alert(
+                    "Ocorreu um erro na confirmação do agendamento. Tente novamente!"
+                );
+            }
+        }
+    }
+
     return (
         <div className={classes.root}>
             <MenuAdmin title={"Agenda"} />
@@ -99,8 +117,10 @@ export default function Agenda() {
                                             <ButtonGroup aria-label="outlined primary button group">
                                                 <Button
                                                     color="primary"
-                                                    href={
-                                                        "./agenda/AgendaConfirmar"
+                                                    onClick={() =>
+                                                        confirmarAgenda(
+                                                            agenda.id
+                                                        )
                                                     }
                                                 >
                                                     Confirmar
