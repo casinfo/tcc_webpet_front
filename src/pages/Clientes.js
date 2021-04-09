@@ -12,7 +12,11 @@ import { makeStyles } from "@material-ui/core/styles";
 
 import MenuAdmin from "../pages/MenuAdmin";
 import { Button, ButtonGroup } from "@material-ui/core";
+import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 
+import jsPDF from "jspdf";
+import "jspdf-autotable";
+import { lightFormat, format } from "date-fns";
 import Title from "./Title";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -76,6 +80,89 @@ export default function Clientes() {
         }
 
         setSelected(newSelected);
+    };
+
+    const clientesPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+
+        doc.setFontSize(15);
+
+        const title = "WebPet - Listagem de Clientes";
+        const headers = [["CÓDIGO", "NOME", "E-MAIL", "FONE", "CPF"]];
+
+        const data = clientes.map((clientes) => [
+            clientes.id,
+            clientes.nome,
+            clientes.email,
+            clientes.fone,
+            clientes.cpf,
+        ]);
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: data,
+            autoSize: true,
+        };
+
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("lista-clientes.pdf");
+    };
+
+    const petsPDF = () => {
+        const unit = "pt";
+        const size = "A4"; // Use A1, A2, A3 or A4
+        const orientation = "portrait"; // portrait or landscape
+
+        const marginLeft = 40;
+        const doc = new jsPDF(orientation, unit, size);
+
+        doc.setFontSize(10);
+
+        const title = "WebPet - Listagem de Pets";
+        const headers = [
+            [
+                "CÓDIGO",
+                "NOME",
+                "CLIENTE",
+                "ESPÉCIE",
+                "RAÇA",
+                "NASCTO.",
+                "PESO",
+                "VACINADO",
+                "PORTE",
+                "SEXO",
+            ],
+        ];
+
+        const data = pets.map((pets) => [
+            pets.id,
+            pets.nome,
+            pets.id_cliente,
+            pets.especie,
+            pets.raca,
+            lightFormat(new Date(pets.data_nascto), "dd/MM/yyyy"),
+            pets.peso,
+            pets.vacinado,
+            pets.porte,
+            pets.sexo,
+        ]);
+
+        let content = {
+            startY: 50,
+            head: headers,
+            body: data,
+        };
+
+        doc.text(title, marginLeft, 40);
+        doc.autoTable(content);
+        doc.save("lista-pets.pdf");
     };
 
     useEffect(() => {
@@ -202,6 +289,14 @@ export default function Clientes() {
                                     href={"./clientes/clientesCadastrar"}
                                 >
                                     Novo
+                                </Button>{" "}
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    onClick={clientesPDF}
+                                    endIcon={<PictureAsPdfOutlinedIcon />}
+                                >
+                                    Listar
                                 </Button>
                             </Grid>
                         </Paper>
@@ -283,6 +378,14 @@ export default function Clientes() {
                                     href={"./pets/PetsCadastrar/"}
                                 >
                                     Novo
+                                </Button>
+                                <Button
+                                    variant="contained"
+                                    color="default"
+                                    onClick={petsPDF}
+                                    endIcon={<PictureAsPdfOutlinedIcon />}
+                                >
+                                    Listar
                                 </Button>
                                 <Button
                                     variant="contained"

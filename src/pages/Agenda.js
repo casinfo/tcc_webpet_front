@@ -13,6 +13,7 @@ import TableRow from "@material-ui/core/TableRow";
 
 import MenuAdmin from "../pages/MenuAdmin";
 import api from "../services/api";
+import { getTipoUsuario } from "../services/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -44,6 +45,8 @@ export default function Agenda() {
     const classes = useStyles();
     const [agenda, setAgenda] = useState([]);
 
+    const tip_usuario = getTipoUsuario();
+
     useEffect(() => {
         async function carregarAgenda() {
             const response = await api.get("/agenda");
@@ -66,6 +69,20 @@ export default function Agenda() {
             } else {
                 alert(
                     "Ocorreu um erro na confirmação do agendamento. Tente novamente!"
+                );
+            }
+        }
+    }
+
+    async function deletarAgenda(id) {
+        if (window.confirm("Confirma a exclusão deste agendamento?")) {
+            var result = await api.delete("/agenda/" + id);
+
+            if (result.status === 200) {
+                window.location.href = "/Agenda";
+            } else {
+                alert(
+                    "Ocorreu um erro na exclusão do agendamento cliente. Tente novamente!"
                 );
             }
         }
@@ -127,11 +144,16 @@ export default function Agenda() {
                                                 </Button>
                                                 <Button
                                                     color="secondary"
-                                                    href={
-                                                        "./agenda/AgendaCancelar"
+                                                    onClick={() =>
+                                                        deletarAgenda(agenda.id)
+                                                    }
+                                                    disabled={
+                                                        tip_usuario !== "A"
+                                                            ? true
+                                                            : false
                                                     }
                                                 >
-                                                    Cancelar
+                                                    Deletar
                                                 </Button>
                                             </ButtonGroup>
                                         </TableRow>
