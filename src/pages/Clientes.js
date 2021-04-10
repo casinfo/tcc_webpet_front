@@ -16,7 +16,7 @@ import PictureAsPdfOutlinedIcon from "@material-ui/icons/PictureAsPdfOutlined";
 
 import jsPDF from "jspdf";
 import "jspdf-autotable";
-import { lightFormat, format } from "date-fns";
+import { lightFormat } from "date-fns";
 import Title from "./Title";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -226,6 +226,7 @@ export default function Clientes() {
                                         <TableCell>E-mail</TableCell>
                                         <TableCell>CPF</TableCell>
                                         <TableCell>Fone</TableCell>
+                                        <TableCell>Opções</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -251,32 +252,34 @@ export default function Clientes() {
                                             <TableCell>
                                                 {clientes.fone}
                                             </TableCell>
-                                            <ButtonGroup aria-label="outlined primary button group">
-                                                <Button
-                                                    color="primary"
-                                                    href={
-                                                        "./clientes/ClientesEditar/" +
-                                                        clientes.id
-                                                    }
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    color="secondary"
-                                                    onClick={() =>
-                                                        deletarCliente(
+                                            <TableCell>
+                                                <ButtonGroup aria-label="outlined primary button group">
+                                                    <Button
+                                                        color="primary"
+                                                        href={
+                                                            "./clientes/ClientesEditar/" +
                                                             clientes.id
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        tip_usuario !== "A"
-                                                            ? true
-                                                            : false
-                                                    }
-                                                >
-                                                    Deletar
-                                                </Button>
-                                            </ButtonGroup>
+                                                        }
+                                                    >
+                                                        Editar
+                                                    </Button>
+                                                    <Button
+                                                        color="secondary"
+                                                        onClick={() =>
+                                                            deletarCliente(
+                                                                clientes.id
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            tip_usuario !== "A"
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    >
+                                                        Deletar
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>
@@ -318,6 +321,7 @@ export default function Clientes() {
                                         <TableCell>Porte</TableCell>
                                         <TableCell>Peso</TableCell>
                                         <TableCell>Cliente</TableCell>
+                                        <TableCell>Opções</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -343,30 +347,32 @@ export default function Clientes() {
                                             <TableCell>
                                                 {pets.id_cliente}
                                             </TableCell>
-                                            <ButtonGroup aria-label="outlined primary button group">
-                                                <Button
-                                                    color="primary"
-                                                    href={
-                                                        "./pets/PetsEditar/" +
-                                                        pets.id
-                                                    }
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    color="secondary"
-                                                    onClick={() =>
-                                                        deletarPet(pets.id)
-                                                    }
-                                                    disabled={
-                                                        tip_usuario !== "A"
-                                                            ? true
-                                                            : false
-                                                    }
-                                                >
-                                                    Deletar
-                                                </Button>
-                                            </ButtonGroup>
+                                            <TableCell>
+                                                <ButtonGroup aria-label="outlined primary button group">
+                                                    <Button
+                                                        color="primary"
+                                                        href={
+                                                            "./pets/PetsEditar/" +
+                                                            pets.id
+                                                        }
+                                                    >
+                                                        Editar
+                                                    </Button>
+                                                    <Button
+                                                        color="secondary"
+                                                        onClick={() =>
+                                                            deletarPet(pets.id)
+                                                        }
+                                                        disabled={
+                                                            tip_usuario !== "A"
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    >
+                                                        Deletar
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

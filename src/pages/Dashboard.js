@@ -42,8 +42,7 @@ const useStyles = makeStyles((theme) => ({
         display: "flex",
         overflow: "auto",
         flexDirection: "column",
-        textAlign: "center" ,
-
+        textAlign: "center",
     },
     fixedHeight: {
         height: 110,
@@ -56,14 +55,21 @@ const useStyles = makeStyles((theme) => ({
     },
     fixedWidthChart: {
         width: 300,
-    },    
+    },
 }));
 
 export default function Dashboard() {
-
     const classes = useStyles();
-    const stylePaper = clsx(classes.paper, classes.fixedHeight, classes.fixedWidth);    
-    const styleChart = clsx(classes.paper, classes.fixedHeightChart, classes.fixedWidthChart);  
+    const stylePaper = clsx(
+        classes.paper,
+        classes.fixedHeight,
+        classes.fixedWidth
+    );
+    const styleChart = clsx(
+        classes.paper,
+        classes.fixedHeightChart,
+        classes.fixedWidthChart
+    );
 
     return (
         <div className={classes.root}>
@@ -109,6 +115,10 @@ export default function Dashboard() {
                                 <ChartServicos />
                             </Paper>
                         </Grid>
+                        <h6>* Quantidades apuradas nos últimos 6 meses.</h6>
+                    </Grid>
+
+                    <Grid container spacing={3}>
                         {/* Agendados Semana */}
                         <Grid item xs={12} md={4} lg={4}>
                             <Paper className={stylePaper}>
@@ -121,8 +131,7 @@ export default function Dashboard() {
                                 <QtdAgendaMes />
                             </Paper>
                         </Grid>
-                        <Grid item xs={12} md={4} lg={4}>
-                        </Grid>
+                        <Grid item xs={12} md={4} lg={4}></Grid>
                         {/* Chart Agendados Semana */}
                         <Grid item xs={12} md={4} lg={4}>
                             <Paper className={styleChart}>

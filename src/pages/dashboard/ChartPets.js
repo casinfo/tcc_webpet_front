@@ -82,7 +82,7 @@ export default function ChartPets() {
 
     return (
         <React.Fragment>
-            <Title>Pets Últimos 6 Meses</Title>
+            <Title>Novos Pets *</Title>
             <div>
                 <BarChart
                     width={270}

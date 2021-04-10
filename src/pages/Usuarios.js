@@ -133,6 +133,7 @@ export default function Usuarios() {
                                         <TableCell>CPF</TableCell>
                                         <TableCell>Fone</TableCell>
                                         <TableCell>Tipo</TableCell>
+                                        <TableCell>Opções</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -165,32 +166,34 @@ export default function Usuarios() {
                                                     />
                                                 )}
                                             </TableCell>
-                                            <ButtonGroup aria-label="outlined primary button group">
-                                                <Button
-                                                    color="primary"
-                                                    href={
-                                                        "./Usuarios/UsuariosEditar/" +
-                                                        usuarios.id
-                                                    }
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    color="secondary"
-                                                    onClick={() =>
-                                                        deletarUsuario(
+                                            <TableCell>
+                                                <ButtonGroup aria-label="outlined primary button group">
+                                                    <Button
+                                                        color="primary"
+                                                        href={
+                                                            "./Usuarios/UsuariosEditar/" +
                                                             usuarios.id
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        tip_usuario !== "A"
-                                                            ? true
-                                                            : false
-                                                    }
-                                                >
-                                                    Deletar
-                                                </Button>
-                                            </ButtonGroup>
+                                                        }
+                                                    >
+                                                        Editar
+                                                    </Button>
+                                                    <Button
+                                                        color="secondary"
+                                                        onClick={() =>
+                                                            deletarUsuario(
+                                                                usuarios.id
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            tip_usuario !== "A"
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    >
+                                                        Deletar
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

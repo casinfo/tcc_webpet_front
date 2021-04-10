@@ -13,6 +13,7 @@ import MenuItem from "@material-ui/core/MenuItem";
 
 import MenuAdmin from "../MenuAdmin";
 import api from "../../services/api";
+import { getTipoUsuario } from "../../services/auth";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,6 +61,8 @@ export default function UsuariosEditar() {
 
     const { id } = useParams();
 
+    const tip_usuario_logado = getTipoUsuario();
+
     useEffect(() => {
         async function getUsuario() {
             var response = await api.get("/usuarios?id=" + id);
@@ -78,7 +81,7 @@ export default function UsuariosEditar() {
             setTipoUsuario(response.data[0].tipo_usuario);
         }
         getUsuario();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        // ---eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     async function submitUsuario() {
@@ -224,18 +227,29 @@ export default function UsuariosEditar() {
                                     name="senha-Atu"
                                     label="Senha Atual"
                                     fullWidth
+                                    type="password"
                                     value={senhaAtual_usuario}
                                     onChange={(e) =>
                                         setSenhaAtual(e.target.value)
+                                    }
+                                    disabled={
+                                        tip_usuario_logado !== "A"
+                                            ? true
+                                            : false
                                     }
                                 />
                                 <TextField
                                     id="tipo_usuario"
                                     select
+                                    fullWidth
                                     label="Tipo Usuário"
                                     value={tip_usuario}
                                     onChange={handleChange}
-                                    helperText="Selecione o tipo de Usuário."
+                                    disabled={
+                                        tip_usuario_logado !== "A"
+                                            ? true
+                                            : false
+                                    }
                                 >
                                     {tipos.map((option) => (
                                         <MenuItem

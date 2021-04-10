@@ -95,42 +95,41 @@ export default function Agenda() {
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
                 <Container maxWidth="lg" className={classes.container}>
-                    <Grid item xs={12}>
-                        <Paper className={classes.paper}>
-                            <Table size={"small"}>
-                                <TableHead>
-                                    <TableRow>
-                                        <TableCell>Data</TableCell>
-                                        <TableCell>Hora</TableCell>
-                                        <TableCell>Cliente</TableCell>
-                                        <TableCell>Pet</TableCell>
-                                        <TableCell>Funcionário</TableCell>
-                                        <TableCell>Confirmado</TableCell>
-                                    </TableRow>
-                                </TableHead>
+                    <Paper className={classes.paper}>
+                        <Table size={"small"}>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell>Data</TableCell>
+                                    <TableCell>Hora</TableCell>
+                                    <TableCell>Cliente</TableCell>
+                                    <TableCell>Pet</TableCell>
+                                    <TableCell>Funcionário</TableCell>
+                                    <TableCell>Confirmado</TableCell>
+                                    <TableCell>Opções</TableCell>
+                                </TableRow>
+                            </TableHead>
 
-                                <TableBody>
-                                    {agenda.map((agenda) => (
-                                        <TableRow key={agenda.id_cliente}>
-                                            <TableCell>
-                                                {lightFormat(
-                                                    new Date(agenda.data),
-                                                    "dd/MM/yyyy"
-                                                )}
-                                            </TableCell>
-                                            <TableCell>{agenda.hora}</TableCell>
-                                            <TableCell>
-                                                {agenda.id_cliente}
-                                            </TableCell>
-                                            <TableCell>
-                                                {agenda.id_pet}
-                                            </TableCell>
-                                            <TableCell>
-                                                {agenda.id_usuario}
-                                            </TableCell>
-                                            <TableCell>
-                                                {agenda.confirmado}
-                                            </TableCell>
+                            <TableBody>
+                                {agenda.map((agenda) => (
+                                    <TableRow key={agenda.id}>
+                                        <TableCell>
+                                            {lightFormat(
+                                                new Date(agenda.data),
+                                                "dd/MM/yyyy"
+                                            )}
+                                        </TableCell>
+                                        <TableCell>{agenda.hora}</TableCell>
+                                        <TableCell>
+                                            {agenda.id_cliente}
+                                        </TableCell>
+                                        <TableCell>{agenda.id_pet}</TableCell>
+                                        <TableCell>
+                                            {agenda.id_usuario}
+                                        </TableCell>
+                                        <TableCell>
+                                            {agenda.confirmado}
+                                        </TableCell>
+                                        <TableCell>
                                             <ButtonGroup aria-label="outlined primary button group">
                                                 <Button
                                                     color="primary"
@@ -156,28 +155,28 @@ export default function Agenda() {
                                                     Deletar
                                                 </Button>
                                             </ButtonGroup>
-                                        </TableRow>
-                                    ))}
-                                </TableBody>
-                            </Table>
-                            <Grid item xs={12}>
-                                <Button
-                                    variant="contained"
-                                    color="primary"
-                                    href={"./agenda/AgendaCadastrar"}
-                                >
-                                    Agendar
-                                </Button>
-                                <Button
-                                    variant="contained"
-                                    color="secondary"
-                                    href="/Home"
-                                >
-                                    Voltar
-                                </Button>
-                            </Grid>
-                        </Paper>
-                    </Grid>
+                                        </TableCell>
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                        <Grid item xs={12}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                href={"./agenda/AgendaCadastrar"}
+                            >
+                                Agendar
+                            </Button>
+                            <Button
+                                variant="contained"
+                                color="secondary"
+                                href="/Home"
+                            >
+                                Voltar
+                            </Button>
+                        </Grid>
+                    </Paper>
                 </Container>
             </main>
         </div>

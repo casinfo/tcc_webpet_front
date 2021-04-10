@@ -202,6 +202,7 @@ export default function UsuariosCadastrar() {
                                     id="senha_atu"
                                     name="senha-Atu"
                                     label="Senha Atual"
+                                    type="password"
                                     fullWidth
                                     value={senhaAtual_usuario}
                                     onChange={(e) =>

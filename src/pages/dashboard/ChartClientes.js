@@ -82,7 +82,7 @@ export default function ChartAgendados() {
 
     return (
         <React.Fragment>
-            <Title>Clientes Últimos 6 Meses</Title>
+            <Title>Novos Clientes *</Title>
             <div>
                 <BarChart
                     width={270}

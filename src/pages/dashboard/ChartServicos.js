@@ -82,7 +82,7 @@ export default function ChartServicos() {
 
     return (
         <React.Fragment>
-            <Title>Serviços Últimos 6 Meses</Title>
+            <Title>Serviços Executados*</Title>
             <div>
                 <BarChart
                     width={270}

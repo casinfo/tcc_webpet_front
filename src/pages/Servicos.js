@@ -118,6 +118,7 @@ export default function Servicos() {
                                         <TableCell>Código Serviço</TableCell>
                                         <TableCell>Descrição</TableCell>
                                         <TableCell>Tempo Médio</TableCell>
+                                        <TableCell>Opções</TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -130,32 +131,34 @@ export default function Servicos() {
                                             <TableCell>
                                                 {servicos.tempo_medio}
                                             </TableCell>
-                                            <ButtonGroup aria-label="outlined primary button group">
-                                                <Button
-                                                    color="primary"
-                                                    href={
-                                                        "./Servicos/ServicosEditar/" +
-                                                        servicos.id
-                                                    }
-                                                >
-                                                    Editar
-                                                </Button>
-                                                <Button
-                                                    color="secondary"
-                                                    onClick={() =>
-                                                        deletarServicos(
+                                            <TableCell>
+                                                <ButtonGroup aria-label="outlined primary button group">
+                                                    <Button
+                                                        color="primary"
+                                                        href={
+                                                            "./Servicos/ServicosEditar/" +
                                                             servicos.id
-                                                        )
-                                                    }
-                                                    disabled={
-                                                        tip_usuario !== "A"
-                                                            ? true
-                                                            : false
-                                                    }
-                                                >
-                                                    Deletar
-                                                </Button>
-                                            </ButtonGroup>
+                                                        }
+                                                    >
+                                                        Editar
+                                                    </Button>
+                                                    <Button
+                                                        color="secondary"
+                                                        onClick={() =>
+                                                            deletarServicos(
+                                                                servicos.id
+                                                            )
+                                                        }
+                                                        disabled={
+                                                            tip_usuario !== "A"
+                                                                ? true
+                                                                : false
+                                                        }
+                                                    >
+                                                        Deletar
+                                                    </Button>
+                                                </ButtonGroup>
+                                            </TableCell>
                                         </TableRow>
                                     ))}
                                 </TableBody>

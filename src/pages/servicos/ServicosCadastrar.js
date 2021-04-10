@@ -70,7 +70,7 @@ export default function ServicosCadastrar() {
 
     return (
         <div className={classes.root}>
-            <MenuAdmin title={"Cadastrar Serviços"} />
+            <MenuAdmin title={"Cadastrar Serviço"} />
 
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />

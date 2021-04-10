@@ -18,15 +18,14 @@ export default function QtdPets() {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>Pets Últimos 6 Meses</Title>
+            <Title>Novos Pets *</Title>
             <Typography component="p" variant="h4">
                 323
             </Typography>
             <Typography
                 color="textSecondary"
                 className={classes.depositContext}
-            >
-            </Typography>
+            ></Typography>
         </React.Fragment>
     );
 }

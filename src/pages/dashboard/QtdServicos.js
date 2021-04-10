@@ -18,15 +18,14 @@ export default function QtdServicos() {
     const classes = useStyles();
     return (
         <React.Fragment>
-            <Title>Serviços Últimos 6 Meses</Title>
+            <Title>Serviços Executados *</Title>
             <Typography component="p" variant="h4">
                 879
             </Typography>
             <Typography
                 color="textSecondary"
                 className={classes.depositContext}
-            >
-            </Typography>
+            ></Typography>
         </React.Fragment>
     );
 }

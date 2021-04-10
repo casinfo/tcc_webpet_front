@@ -174,7 +174,7 @@ export default function PetCadastrar() {
 
     return (
         <div className={classes.root}>
-            <MenuAdmin title={"Pets"} />
+            <MenuAdmin title={"Cadastrar Pet"} />
 
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
