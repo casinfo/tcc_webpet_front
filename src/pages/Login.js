@@ -74,7 +74,7 @@ export default function Login({ setToken }) {
     const [values, setValues] = useState({ showPassword: false });
 
     const responseGoogle = (res) => {
-        console.log(res.profileObj.email);
+        //console.log(res.profileObj.email);
 
         async function submitUsuario() {
             const data = {
