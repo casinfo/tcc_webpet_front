@@ -58,29 +58,8 @@ export default function Clientes() {
 
     const [clientes, setclientes] = useState([]);
     const [pets, setPets] = useState([]);
-    const [selected, setSelected] = React.useState([]);
 
     const tip_usuario = getTipoUsuario();
-
-    const handleClick = (event, id) => {
-        const selectedIndex = selected.indexOf(id);
-        let newSelected = [];
-
-        if (selectedIndex === -1) {
-            newSelected = newSelected.concat(selected, id);
-        } else if (selectedIndex === 0) {
-            newSelected = newSelected.concat(selected.slice(1));
-        } else if (selectedIndex === selected.length - 1) {
-            newSelected = newSelected.concat(selected.slice(0, -1));
-        } else if (selectedIndex > 0) {
-            newSelected = newSelected.concat(
-                selected.slice(0, selectedIndex),
-                selected.slice(selectedIndex + 1)
-            );
-        }
-
-        setSelected(newSelected);
-    };
 
     const clientesPDF = () => {
         const unit = "pt";
@@ -207,6 +186,16 @@ export default function Clientes() {
         }
     }
 
+    const filtroPets = "";
+    const listarPets = pets;
+
+    function clickCliente(id) {
+        const filtroPets = (pets) => pets.id_cliente === id;
+        const listarPets = pets.filter(filtroPets);
+
+        console.log(listarPets);
+    }
+
     return (
         <div className={classes.root}>
             <MenuAdmin title={"Clientes"} />
@@ -234,7 +223,9 @@ export default function Clientes() {
                                         <TableRow
                                             key={clientes.id}
                                             hover
-                                            //onClick={(event) => handleClick(event, clientes.id)}
+                                            onClick={(event) =>
+                                                clickCliente(clientes.id)
+                                            }
                                             role="checkbox"
                                             tabIndex={-1}
                                             //onClick={(e) => setIdParam(e)}
@@ -325,27 +316,37 @@ export default function Clientes() {
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {pets.map((pets) => (
+                                    {listarPets.map((listarPets) => (
                                         <TableRow
-                                            key={pets.id}
+                                            key={listarPets.id}
                                             hover
-                                            onClick={(event) =>
-                                                handleClick(event, pets.id)
-                                            }
                                             role="checkbox"
                                             tabIndex={-1}
+                                            //onFetchData={this.fetchData}
                                         >
-                                            <TableCell>{pets.id}</TableCell>
-                                            <TableCell>{pets.nome}</TableCell>
                                             <TableCell>
-                                                {pets.especie}
+                                                {listarPets.id}
                                             </TableCell>
-                                            <TableCell>{pets.raca}</TableCell>
-                                            <TableCell>{pets.sexo}</TableCell>
-                                            <TableCell>{pets.porte}</TableCell>
-                                            <TableCell>{pets.peso}</TableCell>
                                             <TableCell>
-                                                {pets.id_cliente}
+                                                {listarPets.nome}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.especie}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.raca}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.sexo}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.porte}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.peso}
+                                            </TableCell>
+                                            <TableCell>
+                                                {listarPets.id_cliente}
                                             </TableCell>
                                             <TableCell>
                                                 <ButtonGroup aria-label="outlined primary button group">
@@ -353,7 +354,7 @@ export default function Clientes() {
                                                         color="primary"
                                                         href={
                                                             "./pets/PetsEditar/" +
-                                                            pets.id
+                                                            listarPets.id
                                                         }
                                                     >
                                                         Editar
@@ -361,7 +362,9 @@ export default function Clientes() {
                                                     <Button
                                                         color="secondary"
                                                         onClick={() =>
-                                                            deletarPet(pets.id)
+                                                            deletarPet(
+                                                                listarPets.id
+                                                            )
                                                         }
                                                         disabled={
                                                             tip_usuario !== "A"
