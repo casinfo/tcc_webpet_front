@@ -56,7 +56,7 @@ export default function Pets() {
 
     return (
         <div className={classes.root}>
-            <MenuAdmin title={"Pets"} />
+            <MenuAdmin title={"Lista de Pets"} />
 
             <main className={classes.content}>
                 <div className={classes.appBarSpacer} />
@@ -66,8 +66,8 @@ export default function Pets() {
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Pet</TableCell>
-                                    <TableCell>Cliente</TableCell>
                                     <TableCell>Nome</TableCell>
+                                    <TableCell>Cliente</TableCell>
                                     <TableCell>Espécie</TableCell>
                                     <TableCell>Raça</TableCell>
                                     <TableCell>Data Nascto.</TableCell>

@@ -59,6 +59,11 @@ export default function Clientes() {
     const [clientes, setclientes] = useState([]);
     const [pets, setPets] = useState([]);
 
+    const [petsAux, setPetsAux] = useState([]);
+    const [petsOrig, setPetsOrig] = useState([]);
+
+    const [listarPets, setListarPets] = useState([]);
+
     const tip_usuario = getTipoUsuario();
 
     const clientesPDF = () => {
@@ -156,8 +161,10 @@ export default function Clientes() {
             const response = await api.get("/pets");
 
             setPets(response.data);
+            setPetsOrig(response.data);
         }
         carregarPets();
+        //clickCliente(clientes.id);
     }, []);
 
     async function deletarCliente(id) {
@@ -186,14 +193,16 @@ export default function Clientes() {
         }
     }
 
-    const filtroPets = "";
-    const listarPets = pets;
-
     function clickCliente(id) {
-        const filtroPets = (pets) => pets.id_cliente === id;
-        const listarPets = pets.filter(filtroPets);
+        setPetsAux(petsOrig);
 
-        console.log(listarPets);
+        setPets(petsOrig);
+
+        const filtroPets = (petsAux) => petsAux.id_cliente === id;
+
+        setListarPets(petsAux.filter(filtroPets));
+
+        setPets(listarPets);
     }
 
     return (
@@ -226,9 +235,7 @@ export default function Clientes() {
                                             onClick={(event) =>
                                                 clickCliente(clientes.id)
                                             }
-                                            role="checkbox"
                                             tabIndex={-1}
-                                            //onClick={(e) => setIdParam(e)}
                                         >
                                             <TableCell>{clientes.id}</TableCell>
                                             <TableCell>

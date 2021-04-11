@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Grid from "@material-ui/core/Grid";
 import Paper from "@material-ui/core/Paper";
 import clsx from "clsx";
@@ -37,7 +37,6 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-
 export default function ClientesCadastrar() {
     const classes = useStyles();
     const fixedHeightPaper = clsx(classes.paper, classes.container);
@@ -53,32 +52,114 @@ export default function ClientesCadastrar() {
     const [uf_cliente, setUF] = useState("");
     const [fone_cliente, setFone] = useState("");
     const [cpf, setCPF] = useState("");
-    
-    async function submitCliente() {
 
+    const [dashClientes, setDash] = useState([]);
+    const [idDash, setIdDash] = useState([]);
+    const [ano, setAnoDash] = useState([]);
+    const [mes, setMesDash] = useState([]);
+    const [qtd, setQtdDash] = useState([]);
+    const [tot, setTotDash] = useState([]);
+
+    async function submitCliente() {
         const data = {
-            nome:nome_cliente, 
-            email:email_cliente, 
-            cep:cep_cliente, 
-            endereco:endereco_cliente, 
-            numero:numero_cliente, 
-            complemento:complemento_cliente, 
-            bairro:bairro_cliente, 
-            cidade:cidade_cliente, 
-            uf:uf_cliente, 
-            fone:fone_cliente, 
-            cpf:cpf
+            nome: nome_cliente,
+            email: email_cliente,
+            cep: cep_cliente,
+            endereco: endereco_cliente,
+            numero: numero_cliente,
+            complemento: complemento_cliente,
+            bairro: bairro_cliente,
+            cidade: cidade_cliente,
+            uf: uf_cliente,
+            fone: fone_cliente,
+            cpf: cpf,
         };
 
-        const response = await api.post('/clientes', data);
+        if (
+            nome_cliente !== "" &&
+            email_cliente !== "" &&
+            fone_cliente !== "" &&
+            cpf !== ""
+        ) {
+            const response = await api.post("/clientes", data);
+            if (response.status === 200) {
+                // atualiza dashboard
+                //await submitDashCliente();
 
-        if (response.status === 200){
-            window.location.href = "/clientes";
+                window.location.href = "/clientes";
+            } else if (response.status === 401) {
+                alert("Os campos não foram preenchidos corretamente!");
+            } else {
+                alert(
+                    "Ocorreu um erro na inclusão do cliente. Tente novamente! Erro: " +
+                        response.status
+                );
+            }
         } else {
-           alert("Ocorreu um erro na inclusão do cliente. Tente novamente! Erro: " + response.status);
-        }        
-    };
-    
+            alert("Os campos não foram preenchidos corretamente!");
+        }
+    }
+
+    useEffect(() => {
+        // Obtém a data/hora atual
+        var dataAtu = new Date();
+        //var dia = data.getDate(); // 1-31
+        //var dia_sem = data.getDay(); // 0-6 (zero=domingo)
+        var mesAtu = dataAtu.getMonth(); // 0-11 (zero=janeiro)
+        //var ano2 = data.getYear(); // 2 dígitos
+        var anoAtu = dataAtu.getFullYear(); // 4 dígitos
+
+        async function lerDash() {
+            const response = await api.get("/dashclientes");
+
+            console.log("Api-response", response.data);
+
+            //setDash(response.data);
+
+            const resp = response.data;
+
+            const filtroDash = (r) => r.ano === anoAtu && r.mes === mesAtu;
+
+            const regDash = resp.filter(filtroDash);
+
+            console.log("dashClientes", dashClientes, resp);
+            console.log("filtroDash", regDash);
+
+            //console.log(regDash);
+
+            setIdDash(regDash.id);
+            setAnoDash(regDash.ano);
+            setMesDash(regDash.mes);
+            setQtdDash(regDash.qtd);
+            setTotDash(regDash.tot);
+        }
+        lerDash();
+    }, []);
+
+    async function submitDashCliente() {
+        const data = {
+            ano: ano,
+            mes: mes,
+            qtd: qtd,
+            tot: tot,
+        };
+        console.log("Koe", idDash, data);
+        const response = await api.put("/dashclientes/" + idDash, data);
+
+        if (response.status === 200) {
+            //window.location.href = "/clientes";
+        } else {
+            if (response.status === 400) {
+                alert(response.error);
+            } else {
+                alert(
+                    "Ocorreu um erro na inclusão do dash cliente. Tente novamente! Erro: " +
+                        response.status
+                );
+            }
+        }
+    }
+
     return (
         <div className={classes.root}>
             <MenuAdmin title={"Cadastrar Cliente"} />
@@ -96,7 +177,7 @@ export default function ClientesCadastrar() {
                                     fullWidth
                                     autoComplete="name"
                                     value={nome_cliente}
-                                    onChange={e => setNome(e.target.value)}
+                                    onChange={(e) => setNome(e.target.value)}
                                 />
                                 <TextField
                                     required
@@ -106,7 +187,7 @@ export default function ClientesCadastrar() {
                                     fullWidth
                                     autoComplete="email"
                                     value={email_cliente}
-                                    onChange={e => setEmail(e.target.value)}
+                                    onChange={(e) => setEmail(e.target.value)}
                                 />
                                 <TextField
                                     id="cep"
@@ -115,7 +196,7 @@ export default function ClientesCadastrar() {
                                     fullWidth
                                     autoComplete="shipping"
                                     value={cep_cliente}
-                                    onChange={e => setCep(e.target.value)}
+                                    onChange={(e) => setCep(e.target.value)}
                                 />
                                 <TextField
                                     id="endereco"
@@ -123,7 +204,9 @@ export default function ClientesCadastrar() {
                                     label="Endereço"
                                     fullWidth
                                     value={endereco_cliente}
-                                    onChange={e => setEndereco(e.target.value)}                                   
+                                    onChange={(e) =>
+                                        setEndereco(e.target.value)
+                                    }
                                 />
                                 <TextField
                                     id="numero"
@@ -131,7 +214,7 @@ export default function ClientesCadastrar() {
                                     label="Número"
                                     fullWidth
                                     value={numero_cliente}
-                                    onChange={e => setNumero(e.target.value)}      
+                                    onChange={(e) => setNumero(e.target.value)}
                                 />
                                 <TextField
                                     id="complemento"
@@ -139,7 +222,9 @@ export default function ClientesCadastrar() {
                                     label="Complemento"
                                     fullWidth
                                     value={complemento_cliente}
-                                    onChange={e => setComplemento(e.target.value)} 
+                                    onChange={(e) =>
+                                        setComplemento(e.target.value)
+                                    }
                                 />
                                 <TextField
                                     id="bairro"
@@ -147,7 +232,7 @@ export default function ClientesCadastrar() {
                                     label="Bairro"
                                     fullWidth
                                     value={bairro_cliente}
-                                    onChange={e => setBairro(e.target.value)} 
+                                    onChange={(e) => setBairro(e.target.value)}
                                 />
                                 <TextField
                                     id="cidade"
@@ -155,7 +240,7 @@ export default function ClientesCadastrar() {
                                     label="Cidade"
                                     fullWidth
                                     value={cidade_cliente}
-                                    onChange={e => setCidade(e.target.value)} 
+                                    onChange={(e) => setCidade(e.target.value)}
                                 />
                                 <TextField
                                     id="uf"
@@ -163,7 +248,7 @@ export default function ClientesCadastrar() {
                                     label="UF"
                                     fullWidth
                                     value={uf_cliente}
-                                    onChange={e => setUF(e.target.value)} 
+                                    onChange={(e) => setUF(e.target.value)}
                                 />
                                 <TextField
                                     id="fone"
@@ -171,7 +256,7 @@ export default function ClientesCadastrar() {
                                     label="Fone"
                                     fullWidth
                                     value={fone_cliente}
-                                    onChange={e => setFone(e.target.value)} 
+                                    onChange={(e) => setFone(e.target.value)}
                                 />
                                 <TextField
                                     id="cpf"
@@ -179,11 +264,15 @@ export default function ClientesCadastrar() {
                                     label="CPF"
                                     fullWidth
                                     value={cpf}
-                                    onChange={e => setCPF(e.target.value)} 
+                                    onChange={(e) => setCPF(e.target.value)}
                                 />
                             </Grid>
                             <Grid item xs={12}>
-                                <Button variant="contained" color="primary" onClick={submitCliente}>
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={submitCliente}
+                                >
                                     Salvar
                                 </Button>
                                 <Button

@@ -8,6 +8,7 @@ import TextField from "@material-ui/core/TextField";
 import { Button } from "@material-ui/core";
 import MenuItem from "@material-ui/core/MenuItem";
 import { useParams } from "react-router-dom";
+import { lightFormat } from "date-fns";
 
 import MenuAdmin from "../MenuAdmin";
 import api from "../../services/api";
@@ -55,7 +56,7 @@ export default function PetsEditar() {
 
     useEffect(() => {
         async function getPet() {
-            var response = await api.get("/pets?id=" + id);
+            const response = await api.get("/pets?id=" + id);
 
             setIdCliente(response.data[0].id_cliente);
             setNome(response.data[0].nome);
@@ -66,6 +67,8 @@ export default function PetsEditar() {
             setVacinado(response.data[0].vacinado);
             setPorte(response.data[0].porte);
             setSexo(response.data[0].sexo);
+
+            console.log("datadenasc", data_nascto, response);
         }
         getPet();
         // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -191,6 +194,10 @@ export default function PetsEditar() {
         setSexo(event.target.value);
     };
 
+    const handleData = (event) => {
+        setDataNascto(event.target.value);
+    };
+
     return (
         <div className={classes.root}>
             <MenuAdmin title={"Pets"} />
@@ -250,7 +257,12 @@ export default function PetsEditar() {
                                     id="data_nascto"
                                     label="Data de Nascimento"
                                     type="date"
-                                    defaultValue={Date().toString}
+                                    value={() =>
+                                        lightFormat(
+                                            new Date(data_nascto),
+                                            "dd/MM/yyyy"
+                                        )
+                                    }
                                     className={classes.textField}
                                     InputLabelProps={{
                                         shrink: true,
